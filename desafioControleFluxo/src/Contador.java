@@ -13,7 +13,6 @@ public class Contador {
     }
 
     static void contador(Scanner scanner) throws ParametrosInvalidosException {
-        boolean valido = false;
         try {
             System.out.println("Digite o primeiro número: ");
             int numero1 = scanner.nextInt();
