@@ -28,7 +28,7 @@ public class CarrinhoDeCompras {
         }
     }
 
-    public Double calcularValorTotal() {
+    public double calcularValorTotal() {
         double valorTotal = 0;
         if(!carrinho.isEmpty()) {
             for (Item item : carrinho) {
@@ -37,7 +37,7 @@ public class CarrinhoDeCompras {
             }
             return valorTotal;
         } else {
-            throw new RuntimeException("A lista está vazia");
+            throw new RuntimeException();
         }
     }
 
@@ -61,13 +61,17 @@ public class CarrinhoDeCompras {
         carrinhoDeCompras.adicinarItem("borracha", 1.99, 2);
         carrinhoDeCompras.adicinarItem("Caderno", 14.99, 1);
 
-        carrinhoDeCompras.exibirItens();
-        double valorTotal = carrinhoDeCompras.calcularValorTotal();
-        System.out.println("Valor total do carrinho: " + valorTotal);
-        System.out.println("-----------------------");
-        carrinhoDeCompras.removerItem("borracha");
-        carrinhoDeCompras.exibirItens();
-        valorTotal = carrinhoDeCompras.calcularValorTotal();
-        System.out.println("Valor total do carrinho: " + valorTotal);
+        try {
+            carrinhoDeCompras.exibirItens();
+            double valorTotal = carrinhoDeCompras.calcularValorTotal();
+            System.out.println("Valor total do carrinho: " + valorTotal);
+            System.out.println("-----------------------");
+            carrinhoDeCompras.removerItem("borracha");
+            carrinhoDeCompras.exibirItens();
+            valorTotal = carrinhoDeCompras.calcularValorTotal();
+            System.out.println("Valor total do carrinho: " + valorTotal);
+        } catch (RuntimeException e) {
+            System.out.println("A lista esta vazia");
+        }
     }
 }
