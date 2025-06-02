@@ -1,8 +1,7 @@
-package edu.ordenacaoEmList.ordenacaoNumeros;
+package edu.ordenacao.list.ordenacaoNumeros;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class OrdenacaoNumeros {

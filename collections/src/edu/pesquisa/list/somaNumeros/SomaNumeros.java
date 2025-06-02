@@ -1,4 +1,4 @@
-package edu.pesquisaEmList.somaNumeros;
+package edu.pesquisa.list.somaNumeros;
 
 import java.util.ArrayList;
 import java.util.Collections;
