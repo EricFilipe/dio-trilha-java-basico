@@ -27,6 +27,10 @@ public class ConjuntoConvidados {
         } else {
             System.out.println("Lista de convidados vazia");
         }
+
+        if(convidadoParaRemover == null) {
+            System.out.println("Convidado nao encontrado");
+        }
     }
 
     public int contarConvidados() {
