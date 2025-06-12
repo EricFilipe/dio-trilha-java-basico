@@ -39,9 +39,7 @@ public class EstoqueProdutos {
             for(Produto p : estoqueProduto.values()) {
                 if (p.getPreco() > valorMaisAlto) {
                     valorMaisAlto = p.getPreco();
-                    if (p.getPreco() == valorMaisAlto) {
-                        produtoMaisCaro = p;
-                    }
+                    produtoMaisCaro = p;
                 }
             }
             return produtoMaisCaro;
@@ -57,9 +55,7 @@ public class EstoqueProdutos {
             for(Produto p : estoqueProduto.values()) {
                 if (p.getPreco() < valorMaisBaixo) {
                     valorMaisBaixo = p.getPreco();
-                    if (p.getPreco() == valorMaisBaixo) {
-                        produtoMaisBarato = p;
-                    }
+                    produtoMaisBarato = p;
                 }
             }
             return produtoMaisBarato;
