@@ -52,8 +52,8 @@ public class Sudoku {
     }
 
     public void clear(String[] args) {
-        for(int hIndex = 0; hIndex < 9; hIndex++) {
-            for(int vIndex = 0; vIndex < 9; vIndex++) {
+        for(int hIndex = 1; hIndex < 10; hIndex++) {
+            for(int vIndex = 1; vIndex < 10; vIndex++) {
                 if(!checkFixedNumber(hIndex, vIndex, args)) {
                     removeNumber(hIndex, vIndex, args);
                 }
