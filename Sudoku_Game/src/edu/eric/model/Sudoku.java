@@ -19,14 +19,14 @@ public class Sudoku {
     }
 
     public void addNumber(int horizontalIndex, int verticalIndex, String number) throws InvalidNumberException {
-        if(checkSpaceOccupied(horizontalIndex, verticalIndex)) {
+        if(checkSpaceOccupied(horizontalIndex - 1, verticalIndex - 1)) {
             System.out.println("ESPAÇO JÁ OCUPADO");
         } else if (Integer.parseInt(number) <= 0 || Integer.parseInt(number) > 9) {
             throw new InvalidNumberException();
         } else {
             for (int i = 0; i < 9; i++) {
-                if (i == horizontalIndex) {
-                    surroundingSpace.get(i).set(verticalIndex, number);
+                if (i == horizontalIndex - 1) {
+                    surroundingSpace.get(i).set(verticalIndex - 1, number);
                 }
             }
         }
@@ -36,7 +36,7 @@ public class Sudoku {
         if(checkFixedNumber(horizontalIndex, verticalIndex, args)) {
             System.out.println("NÚMERO FIXO NÃO PODE SER REMOVIDO");
         } else {
-            surroundingSpace.get(horizontalIndex).set(verticalIndex, " ");
+            surroundingSpace.get(horizontalIndex - 1).set(verticalIndex - 1, " ");
         }
     }
 

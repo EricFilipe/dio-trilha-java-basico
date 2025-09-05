@@ -64,9 +64,9 @@ public class Menu {
                                     int option2 = scanner.nextInt();
                                     switch (option2) {
                                         case 1:
-                                            System.out.print("INFORME O ÍNDICE HORIZONTAL(COMEÇANDO PELO 0): ");
+                                            System.out.print("INFORME O ÍNDICE HORIZONTAL: ");
                                             int horizontalIndex = scanner.nextInt();
-                                            System.out.print("INFORME O ÍNDICE VERTICAL(COMEÇANDO PELO 0): ");
+                                            System.out.print("INFORME O ÍNDICE VERTICAL: ");
                                             int verticalIndex = scanner.nextInt();
                                             System.out.print("INFORME O NÚMERO: ");
                                             String number = scanner.next();
@@ -75,9 +75,9 @@ public class Menu {
                                             break;
 
                                         case 2:
-                                            System.out.print("INFORME O ÍNDICE HORIZONTAL(COMEÇANDO PELO 0): ");
+                                            System.out.print("INFORME O ÍNDICE HORIZONTAL: ");
                                             horizontalIndex = scanner.nextInt();
-                                            System.out.print("INFORME O ÍNDICE VERTICAL(COMEÇANDO PELO 0): ");
+                                            System.out.print("INFORME O ÍNDICE VERTICAL: ");
                                             verticalIndex = scanner.nextInt();
                                             box.removeNumber(horizontalIndex, verticalIndex, args);
                                             break;
