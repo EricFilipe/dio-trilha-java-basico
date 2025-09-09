@@ -106,6 +106,8 @@ public class Menu {
                                     System.out.println("ÍNDICE INVÁLIDO");
                                 } catch (InvalidNumberException e) {
                                     System.out.println("NÚMERO DEVE SER DE 1 A 9");
+                                } catch (NumberFormatException e) {
+                                    System.out.println("FORMATO INVALIDO. INFORME UM NÚMERO!");
                                 }
                             }
                         }
