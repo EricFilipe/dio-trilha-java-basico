@@ -1,22 +1,20 @@
 package edu.eric.model;
 
-import edu.eric.service.InvalidNumberException;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
 
+    private final Scanner scanner = new Scanner(System.in);
+    private Sudoku border = new Sudoku();
+
     public void play(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Sudoku box = new Sudoku();
-
-        boolean valid = true;
-
         try {
 
-            while (valid) {
-                if (!box.isGameStarted()) {
+            while (true) {
+                if (!border.isGameStarted()) {
                     System.out.println("VAMOS JOGAR!!");
                     System.out.println("1 -  INICIAR NOVO JOGO");
                     System.out.println("2 -  VERIFICAR STATUS DO JOGO");
@@ -32,98 +30,69 @@ public class Menu {
                 int option = scanner.nextInt();
                 switch (option) {
                     case 1:
-                        box = new Sudoku();
-
-                        box.setGameStarted(true);
-
-                        for (int i = 0; i < args.length; i++) {
-                            if (i % 3 == 0) {
-                                box.addNumber(Integer.parseInt(args[i]), Integer.parseInt(args[i + 1]), args[i + 2]);
-                            }
-                        }
+                        startNewGame(args);
 
                     case 2:
-                        if (!box.isGameStarted()) {
-                            box.checkGameStatus();
+                        if (!border.isGameStarted()) {
+                            border.checkGameStatus();
                         } else {
-                            boolean valid2 = true;
+                            boolean valid = true;
 
-                            while (valid2) {
+                            while (valid) {
 
-                                try {
+                                System.out.println("1 - COLOCAR NOVO NUMERO");
+                                System.out.println("2 - REMOVER NUMERO");
+                                System.out.println("3 - VERIFICAR JOGO");
+                                System.out.println("4 - LIMPAR");
+                                System.out.println("5 - FINALIZAR JOGO");
+                                System.out.println("6 - VOLTAR PARA O MENU INICIAL");
 
-                                    System.out.println("1 - COLOCAR NOVO NUMERO");
-                                    System.out.println("2 - REMOVER NUMERO");
-                                    System.out.println("3 - VERIFICAR JOGO");
-                                    System.out.println("4 - LIMPAR");
-                                    System.out.println("5 - FINALIZAR JOGO");
-                                    System.out.println("6 - VOLTAR PARA O MENU INICIAL");
+                                border.show();
 
-                                    box.show();
+                                int option2 = scanner.nextInt();
+                                switch (option2) {
+                                    case 1:
+                                        inputNumber();
+                                        break;
 
-                                    int option2 = scanner.nextInt();
-                                    switch (option2) {
-                                        case 1:
-                                            System.out.print("INFORME O ÍNDICE HORIZONTAL: ");
-                                            int horizontalIndex = scanner.nextInt();
-                                            System.out.print("INFORME O ÍNDICE VERTICAL: ");
-                                            int verticalIndex = scanner.nextInt();
-                                            System.out.print("INFORME O NÚMERO: ");
-                                            String number = scanner.next();
+                                    case 2:
+                                        deleteNumber(args);
+                                        break;
 
-                                            box.addNumber(horizontalIndex, verticalIndex, number);
-                                            break;
+                                    case 3:
+                                        border.checkGame();
+                                        break;
 
-                                        case 2:
-                                            System.out.print("INFORME O ÍNDICE HORIZONTAL: ");
-                                            horizontalIndex = scanner.nextInt();
-                                            System.out.print("INFORME O ÍNDICE VERTICAL: ");
-                                            verticalIndex = scanner.nextInt();
-                                            box.removeNumber(horizontalIndex, verticalIndex, args);
-                                            break;
+                                    case 4:
+                                        border.clear(args);
+                                        break;
 
-                                        case 3:
-                                            box.checkGame();
-                                            break;
+                                    case 5:
+                                        border.endGame();
+                                        break;
 
-                                        case 4:
-                                            box.clear(args);
-                                            break;
+                                    case 6:
+                                        valid = false;
+                                        break;
 
-                                        case 5:
-                                            box.endGame();
-                                            break;
-
-                                        case 6:
-                                            valid2 = false;
-                                            break;
-
-                                        default:
-                                            System.out.println("OPÇÃO INVÁLIDA");
-                                    }
-
-                                } catch (IndexOutOfBoundsException e) {
-                                    System.out.println("ÍNDICE INVÁLIDO");
-                                } catch (InvalidNumberException e) {
-                                    System.out.println("NÚMERO DEVE SER DE 1 A 9");
-                                } catch (NumberFormatException e) {
-                                    System.out.println("FORMATO INVALIDO. INFORME UM NÚMERO!");
+                                    default:
+                                        System.out.println("OPÇÃO INVÁLIDA");
                                 }
                             }
                         }
                         break;
 
                     case 3:
-                        if (!box.isGameStarted()) {
-                            valid = false;
+                        if (!border.isGameStarted()) {
+                            System.exit(0);
                         } else {
-                            box.checkGameStatus();
+                            border.checkGameStatus();
                         }
                         break;
 
                     case 4:
-                        if (box.isGameStarted()) {
-                            valid = false;
+                        if (border.isGameStarted()) {
+                            System.exit(0);
                         } else {
                             System.out.println("OPÇÃO INVÁLIDA");
                         }
@@ -136,5 +105,50 @@ public class Menu {
         } catch (InputMismatchException e) {
             System.out.println("OPÇÃO INVÁLIDA");
         }
+    }
+
+    private void startNewGame(String[] args) {
+        border = new Sudoku();
+
+        border.setGameStarted(true);
+
+        for (int i = 0; i < args.length; i++) {
+            if (i % 3 == 0) {
+                border.addNumber(Integer.parseInt(args[i]), Integer.parseInt(args[i + 1]), args[i + 2]);
+            }
+        }
+    }
+
+    private void inputNumber() {
+        System.out.print("INFORME O ÍNDICE HORIZONTAL: ");
+        int horizontalIndex = runUntilGetValidNumber();
+
+        System.out.print("INFORME O ÍNDICE VERTICAL: ");
+        int verticalIndex = runUntilGetValidNumber();
+
+        System.out.print("INFORME O NÚMERO: ");
+        String number = String.valueOf(runUntilGetValidNumber());
+
+        border.addNumber(horizontalIndex, verticalIndex, number);
+    }
+
+    private void deleteNumber(String[] args) {
+        System.out.print("INFORME O ÍNDICE HORIZONTAL: ");
+        int horizontalIndex = runUntilGetValidNumber();
+
+        System.out.print("INFORME O ÍNDICE VERTICAL: ");
+        int verticalIndex = runUntilGetValidNumber();
+
+        border.removeNumber(horizontalIndex, verticalIndex, args);
+    }
+
+    private int runUntilGetValidNumber() {
+        int numberInformed = scanner.nextInt();
+        while (numberInformed < 1 || numberInformed > 9) {
+            System.out.println("INFORME UM NUMERO ENTRE 1 E 9");
+            numberInformed = scanner.nextInt();
+        }
+
+        return numberInformed;
     }
 }

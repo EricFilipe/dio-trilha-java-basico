@@ -1,9 +1,8 @@
 package edu.eric.model;
 
-import edu.eric.service.InvalidNumberException;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Sudoku {
     private List<List<String>> surroundingSpace;
@@ -18,17 +17,11 @@ public class Sudoku {
         }
     }
 
-    public void addNumber(int horizontalIndex, int verticalIndex, String number) throws InvalidNumberException {
-        if(checkSpaceOccupied(horizontalIndex - 1, verticalIndex - 1)) {
+    public void addNumber(int horizontalIndex, int verticalIndex, String number) {
+        if(isSpaceOccupied(horizontalIndex - 1, verticalIndex - 1)) {
             System.out.println("ESPAÇO JÁ OCUPADO");
-        } else if (Integer.parseInt(number) <= 0 || Integer.parseInt(number) > 9) {
-            throw new InvalidNumberException();
         } else {
-            for (int i = 0; i < 9; i++) {
-                if (i == horizontalIndex - 1) {
-                    surroundingSpace.get(i).set(verticalIndex - 1, number);
-                }
-            }
+            surroundingSpace.get(horizontalIndex - 1).set(verticalIndex - 1, number);
         }
     }
 
@@ -40,15 +33,14 @@ public class Sudoku {
         }
     }
 
-    private boolean checkSpaceOccupied(int horizontalIndex, int verticalIndex) {
-        Space space = new Space();
+    private boolean isSpaceOccupied(int horizontalIndex, int verticalIndex) {
         if(surroundingSpace.get(horizontalIndex).get(verticalIndex).equals(" ")) {
-            space.setOccupied(false);
+            Space.setOccupied(false);
         } else {
-            space.setOccupied(true);
+            Space.setOccupied(true);
         }
 
-        return space.isOccupied();
+        return Space.isOccupied();
     }
 
     public void clear(String[] args) {
@@ -111,7 +103,7 @@ public class Sudoku {
             List<String> columnNumbers = new ArrayList<>();
 
             for(int j = 0; j < 9; j++) {
-                if(!checkSpaceOccupied(j, i)) {
+                if(!isSpaceOccupied(j, i)) {
                     continue;
                 }
                 columnNumbers.add(surroundingSpace.get(j).get(i));
@@ -161,15 +153,15 @@ public class Sudoku {
         surroundingSpace.forEach(System.out::println);
     }
 
-    public List<List<String>> getSurroundingSpace() {
-        return surroundingSpace;
-    }
-
     public boolean isGameStarted() {
         return gameStarted;
     }
 
     public void setGameStarted(boolean gameStarted) {
         this.gameStarted = gameStarted;
+    }
+
+    public List<List<String>> getSurroundingSpace() {
+        return surroundingSpace;
     }
 }

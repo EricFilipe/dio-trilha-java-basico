@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Space {
     private List<String> spaces;
-    private boolean occupied;
+    private static boolean occupied;
 
     public Space() {
         this.spaces = new ArrayList<>();
@@ -19,12 +19,12 @@ public class Space {
         return spaces;
     }
 
-    public boolean isOccupied() {
+    public static boolean isOccupied() {
         return occupied;
     }
 
-    public void setOccupied(boolean occupied) {
-        this.occupied = occupied;
+    public static void setOccupied(boolean occupied) {
+        Space.occupied = occupied;
     }
 
     @Override
