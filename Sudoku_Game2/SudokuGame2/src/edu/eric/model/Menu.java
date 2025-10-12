@@ -5,12 +5,12 @@ import java.util.Scanner;
 
 public class Menu {
     private final Scanner scanner = new Scanner(System.in);
-    private final Sudoku border = new Sudoku();
+    private final Sudoku board = new Sudoku();
 
     public void play(String[] args) {
         try {
             while (true) {
-                boolean isGameStarted = border.getBorder().getFirst().isEmpty();
+                boolean isGameStarted = board.getBoard().getFirst().isEmpty();
                 if (isGameStarted) {
                     System.out.println("VAMOS JOGAR!!");
                     System.out.println("1 -  INICIAR NOVO JOGO");
@@ -31,22 +31,22 @@ public class Menu {
                 switch (option) {
                     case 1:
                         if (isGameStarted) {
-                            border.startGameOrClearGame(args);
+                            board.startGameOrClearGame(args);
 
                             System.out.println("NOVO JOGO INICIADO");
 
-                            border.showCurrentGame();
+                            board.showCurrentGame();
                         } else {
                             inputNumber();
-                            border.showCurrentGame();
+                            board.showCurrentGame();
                         }
                         break;
                     case 2:
                         if (isGameStarted) {
-                            border.checkGameStatus();
+                            board.checkGameStatus();
                         } else {
                             deleteNumber(args);
-                            border.showCurrentGame();
+                            board.showCurrentGame();
                         }
                         break;
 
@@ -54,14 +54,14 @@ public class Menu {
                         if (isGameStarted) {
                             System.exit(0);
                         } else {
-                            border.checkGameStatus();
+                            board.checkGameStatus();
                             break;
                         }
 
                     case 4:
                         if (!isGameStarted) {
-                            border.startGameOrClearGame(args);
-                            border.showCurrentGame();
+                            board.startGameOrClearGame(args);
+                            board.showCurrentGame();
                         } else {
                             System.out.println("OPCAO INVALIDA");
                         }
@@ -69,7 +69,7 @@ public class Menu {
 
                     case 5:
                         if (!isGameStarted) {
-                            border.endGame();
+                            board.endGame();
                         } else {
                             System.out.println("OPCAO INVALIDA");
                         }
@@ -99,7 +99,7 @@ public class Menu {
         System.out.print("INFORME O NÚMERO: ");
         int number = runUntilGetValidNumber();
 
-        border.addNumber(horizontalIndex - 1, verticalIndex - 1, number);
+        board.addNumber(horizontalIndex - 1, verticalIndex - 1, number);
     }
 
     private void deleteNumber(String[] args) {
@@ -109,7 +109,7 @@ public class Menu {
         System.out.print("INFORME O ÍNDICE VERTICAL: ");
         int verticalIndex = runUntilGetValidNumber();
 
-        border.removeNumber(horizontalIndex - 1, verticalIndex - 1, args);
+        board.removeNumber(horizontalIndex - 1, verticalIndex - 1, args);
     }
 
     private int runUntilGetValidNumber() {
